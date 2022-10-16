@@ -1,0 +1,7 @@
+#carouselExampleSlidesOnly.carousel.slide(data-bs-ride="carousel")
+  .carousel-inner
+   -let i = 0 
+   each sliderOne in slider
+    
+       .carousel-item.active
+         img.d-block.w-100(src =`/img/${sliderOne.image}`, alt="...")   

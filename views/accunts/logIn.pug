@@ -1,0 +1,41 @@
+extends ../layout/layout
+
+block content
+
+
+
+ .container
+     .form-product
+       if ErrorPassword
+        div.alert.alert-danger #{ErrorPassword}
+       if NoUser
+        div.alert.alert-danger #{NoUser}
+        
+       form(action="/login" method="POST")
+                    if ErrorMessage
+                      each Error in ErrorMessage
+                       if Error.param === "email" 
+                        div.alert.alert-danger #{Error.msg}
+                    .form-group.row 
+                        label(for="email").col-sm-2.form-label.form-plus Email
+                        .col-sm-10.mt-2
+                         input(type="email" name="email").form-control#email
+
+                    if ErrorMessage
+                      each Error in ErrorMessage
+                       if Error.param === "password" 
+                        div.alert.alert-danger #{Error.msg}
+                    .form-group.row 
+                        label(for="password").col-sm-2.form-label.form-plus Password
+                        .col-sm-10.mt-2
+                         input(type="password" name="password").form-control#password
+
+                   
+                    .form-group.row 
+                        .col-sm-12.mt-4
+                         button(type="submit").btn.btn-primary.btn-form Login
+                         
+                    .form-group.row 
+                        .col-sm-12.mt-4
+                         a(href="/reset-password").btn.btn-link.p-0 Reset Password
+                    

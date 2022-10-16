@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+html(lang="en")
+ include ../includes/head
+
+ body 
+   block content
+   include ../includes/script
+
+
+
+ .container
+     .form-product
+       if ErrorMessage
+        div.alert.alert-danger #{ErrorMessage}
+       if NoUser
+        div.alert.alert-danger #{NoUser}
+        
+       form(action="/new-password" method="POST")
+
+             
+
+                    .form-group.row 
+                        
+                        
+                         input(type="hidden" name="TokenPassword" value=`${TokenPassword}`).form-control#TokenPassword
+                         input(type="hidden" name="userId" value=`${userId}`).form-control#userId
+
+                    .form-group.row 
+                        label(for="password").col-sm-3.form-label Password
+                        .col-sm-9.mt-2
+                         input(type="password" name="password").form-control#password
+
+                   
+                    .form-group.row 
+                        .col-sm-12.mt-4
+                         button(type="submit").btn-form Login
+                         
+           
+                    

@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+html(lang="en")
+ include ../includes/head
+
+ body 
+   
+   block content
+   include ../includes/script
+
+block content
+    nav.navbar.navbar-expand-lg.nav-style.mt-0.py-3.px-lg-5
+ 
+    
+      div.container-fluid
+    
+        a.text-decoration-none.d-block(href="/")
+          h1.m-0.display-5.font-weight-semi-bold
+            span.text-primary.font-weight-bold.border.px-3.mr-1 Diwan
+            | Shop
+       
+        .dropdown
+         if action === "delete"
+          button.btn.btn-primary.dropdown-toggle(type="button", data-bs-toggle="dropdown", aria-expanded="false") "action"
+         else   
+          button.btn.btn-primary.dropdown-toggle(type="button", data-bs-toggle="dropdown", aria-expanded="false") #{action}
+
+         ul.dropdown-menu
+            li
+            a(href="/admin/admin-products?action=Products Mange", class=(path === "/admin/admin-products" ? "nav-link active" : "nav-link")).dropdown-item Products Mange
+            li
+            a.nav-link(href="/admin/admin-categorys?action=Categories Mange").dropdown-item Categories Mange
+            li
+            a.nav-link(href="/admin/orders").dropdown-item Orders
+            li
+            a.nav-link(href="/admin/add-sliderPhotos").dropdown-item Slider Mange
+            li
+            a.nav-link(href="/logout").dropdown-item Log Out
+       
+    .container-fluid   
+     .row.p-4.py-3.px-lg-5 
+        .col-md-12.mb-3.px-3
+         
+            a.btn.btn-primary(href="/admin/add-product") Add New Product
+         
+                    
+        .col-md-12.px-3 
+                    if (action == "undefined" || action == "delete")
+                        .alert.alert-danger.timer The Product has been deleted
+
+                    if (action == "undefined" || action == "edit")
+                        .alert.alert-success.timer The Product has been updated
+                    if products.length > 0
+                        .table-container
+                        table.table.table-bordered
+                         thead  
+                            tr  
+                            th Image     
+                            th Product Description 
+                            th Price
+                           
+                            th 
+
+                         tbody 
+                            each product in products 
+                             tr 
+                                td(style = "height:100px; width:30px")
+                                 -let i = 0
+                                  each img in product.image
+                                   -i++
+                                   if i <= 1
+
+                                    img(src =`/img/${img}` style = "width:80px ;height:100%")  
+                                td #{product.description}
+                                td #{product.price} TL
+                                td.tdStyle
+                                    a.btn.btn-primary.btn-sm(href=`/admin/edit-product/${product._id}`) Edit 
+                                    form(action="/admin/delete-product" method="POST" style="display:inline").mx-2
+                                        input(type="hidden" name="productId" value=`${product._id}`) 
+                                        input(type="hidden" name="actionDelete" value=`${action}`) 
+                                        button(type="submit" ).btn.btn-danger.btn-sm Delete
+
+
+                    else 
+
+                     h1 No Products   

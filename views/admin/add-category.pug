@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+html(lang="en")
+ include ../includes/head
+
+ body 
+   
+   block content
+   include ../includes/script
+
+
+block content
+
+ .container
+    .form-product
+       form(action="/admin/add-category" method="POST" enctype="multipart/form-data")
+
+                    .form-group.row 
+                        label(for="CategoryName").col-sm-2.form-label Category Name
+                        .col-sm-10.mt-2
+                         input(type="text" name="CategoryName").form-control#CategoryName
+
+                    .form-group.row 
+                        label(for="image").col-sm-2.form-label Image
+                        .col-sm-10.mt-2
+                         input(type="file" name="image" required  multiple).form-control#CategoryImg
+
+                   
+                    .form-group.row 
+                        .col-sm-12.mt-2
+                         button(type="submit").btn.btn-primary.btn-form.px-0.py-2 Save Category
+                    

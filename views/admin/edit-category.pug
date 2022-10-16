@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="en")
+    include ../includes/head
+
+    body 
+
+        block content
+        include ../includes/script
+
+    .container
+     .form-product
+       form(action="/admin/categorys" method="POST" enctype="multipart/form-data")
+                    input(type="hidden" name="id" value=`${categorys._id}`)
+                    .form-group.row 
+                        label(for="CategoryName").col-sm-2.form-label Category Name
+                        .col-sm-10.mt-2
+                         input(type="text" name="CategoryName" value=`${categorys.CategoryName}`).form-control#CategoryName
+                    .form-group.row 
+                        label(for="image").col-sm-2.form-label Image
+                        .col-sm-10.mt-2
+                         each img in categorys.image
+                          img(src=`/img/${img}` name ="image" width="80" style="margin-left: 30px")
+                         input(type="file" name="image" required  multiple).form-control#CategoryImg
+
+                   
+                    .form-group.row 
+                        .col-sm-10.mt-2
+                         button(type="submit").btn.btn-primary.btn-form Save Category
+                    

@@ -1,0 +1,38 @@
+extends ../layout/layout
+
+ 
+block content
+  .container
+   
+    .row.pt-4
+
+      if (action == "undefined" || action == "delete")
+          .alert.alert-danger.timer The Product has been deleted
+
+      if (action == "undefined" || action == "edit")
+          .alert.alert-success.timer The Product has been updated
+      if categorys.length > 0
+        .table-container
+           table.table.table-bordered
+            thead  
+             tr  
+               th CategoryName     
+               th(style="width:140px") 
+
+            tbody 
+             each category in categorys 
+              tr 
+            
+                td #{category.CategoryName}
+                td
+                 a.btn.btn-primary.btn-sm(href=`/admin/categorys/${category._id}`) Edit 
+                 form(action="/admin/delete-category" method="POST" style="display:inline").mx-2
+         
+                  input(type="hidden" name="categoryId" value=`${category._id}`) 
+                  button(type="submit").btn.btn-danger.btn-sm Delete
+
+      else 
+
+       h1 No Products         
+    
+    a.btn.btn-primary(href="/admin/add-category") Add Category

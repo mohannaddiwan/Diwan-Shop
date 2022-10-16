@@ -1,0 +1,123 @@
+const express = require("express");
+const router = express.Router();
+const authcation = require("../middleware/Authcuation");
+const adminControl = require("../controllers/admin");
+
+router.get(
+  "/admin/admin-products",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getAdminProduct
+);
+router.get(
+  "/admin/add-product",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getAddProduct
+);
+router.post(
+  "/admin/add-product",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postAddProduct
+);
+router.get(
+  "/admin/add-category",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getAddCategory
+);
+router.post(
+  "/admin/add-category",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postAddCategory
+);
+router.get(
+  "/admin/orders",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getOrders
+);
+router.post("/admin/delete-order", adminControl.deleteOrder);
+router.get(
+  "/admin/add-state",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getAddState
+);
+router.post(
+  "/admin/add-state",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postAddState
+);
+router.get(
+  "/admin/add-size",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getAddSize
+);
+router.post(
+  "/admin/add-size",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postAddSize
+);
+
+router.get(
+  "/admin/admin-categorys",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getCategorys
+);
+router.get(
+  "/admin/edit-product/:productId",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getEditProduct
+);
+router.get(
+  "/admin/categorys/:categoryId",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getEditCategory
+);
+router.post(
+  "/admin/edit-product",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postEditProduct
+);
+router.post(
+  "/admin/categorys",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postEditCategory
+);
+router.post(
+  "/admin/delete-product",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postDeleteProduct
+);
+router.post(
+  "/admin/delete-category",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postDeleteCategory
+);
+router.get(
+  "/admin/add-sliderPhotos",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.getaddSliderPhotos
+);
+router.post(
+  "/admin/add-sliderPhotos",
+  authcation.isAuthcuated,
+  authcation.isAdmin,
+  adminControl.postaddSliderPhotos
+);
+
+module.exports = router;

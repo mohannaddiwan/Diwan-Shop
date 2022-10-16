@@ -1,0 +1,60 @@
+extends ../layout/layout
+
+include ../mixin/sections
+include ../mixin/sectionOf
+block content   
+  div.alert-addFav
+     .option-box
+      i.fa-solid.fa-circle-exclamation
+     .option-box
+      h5 Favorilere Eklemek için giriş yapınız.
+     .option-box
+      div.alert 
+       button.btn.btn-primary.text-white Tammam
+     
+  .container-fluid
+   .row.px-lg-5
+     div.alert.alert-success.timer 
+         .option-box
+          h3 Product Added
+         .option-box
+           h1(style="color:green") ✓
+     include ../includes/slider
+  .container-fluid.pt-5
+    .row.px-xl-5.pb-3
+
+              
+         if categorys.length > 0
+           h1.mb-5.title Categories 
+           each category in categorys 
+             //- div.col-lg-2.col-md-4.mb-4.col-sm-6
+             +sections(category)
+
+         else 
+              h1 No Products
+
+  .container-fluid
+   .row.px-xl-5.pb-3
+     h1.mb-5.title New Added
+     each product in products 
+      each stateOne in product.stateList 
+       if stateOne === "Yeni Eklendi"
+        .col-xl-3.col-lg-4.col-md-6.col-sm-12.pb-1
+
+           
+           +sectionOf(product)
+
+  .container-fluid.pt-5
+   .row.px-xl-5.pb-3
+     h1.mb-5.title Best Selling Product
+     each product in products 
+      each stateOne in product.stateList 
+       if stateOne === "Çok Satan Ürün"
+        .col-xl-3.col-lg-4.col-md-6.col-sm-12.pb-1
+         
+           +sectionOf(product)
+
+
+
+
+

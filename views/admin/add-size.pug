@@ -1,0 +1,18 @@
+extends ../layout/layout
+
+block content
+
+ .container
+    .form-product
+       form(action="/admin/add-size" method="POST")
+
+                    .form-group.row 
+                        label(for="sizeName").col-sm-2.form-label Size Name
+                        .col-sm-10.mt-2
+                         input(type="text" name="sizeName").form-control#SizeName
+
+                   
+                    .form-group.row 
+                        .col-sm-10.mt-2
+                         button(type="submit").btn-form Save Size
+                    

@@ -1,0 +1,12 @@
+
+
+mixin sections(category)
+    .col-lg-2.col-md-4.pb-1
+      .cat-item.d-flex.flex-column.border.mb-4(style="height: 300px;")
+        a.cat-img.position-relative.overflow-hidden.mb-3(href=`/products/${category.CategoryName}` style="height: 100%; ")
+          each img in category.image
+           img.card-img-top(src=`/img/${img}` alt="..." style="width: 100%; height:100% ")
+        h5(style="text-align:center").font-weight-semi-bold.m-0 #{category.CategoryName}
+            
+
+  

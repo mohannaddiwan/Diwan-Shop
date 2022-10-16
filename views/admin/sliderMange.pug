@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+html(lang="en")
+    include ../includes/head
+
+    body 
+
+        block content
+        include ../includes/script
+
+    .container
+     .form-product
+       form(action="/admin/add-sliderPhotos" method="POST" enctype="multipart/form-data")
+                 
+                    .form-group.row 
+                        label(for="image").col-sm-2.form-label Image
+                        .col-sm-10.mt-2
+                         input(type="file" name="image" required  multiple).form-control#SliderImg
+
+                   
+                    .form-group.row 
+                        .col-sm-10.mt-2
+                         button(type="submit").btn.btn-primary.btn-form Save 
+                    

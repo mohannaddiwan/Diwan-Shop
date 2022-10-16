@@ -1,0 +1,157 @@
+mixin sectionOf(product)
+    -let i = 0
+    if isAuthcuated
+     button(type="button" value=`${product._id}fav` ).add-toCart#addTocart.fa-regular.fa-heart.addToFav 
+    else
+     button(type="button" value=`${product._id}fav` class = (isAuthcuated === true ? "add-toCart fa-regular fa-heart addToFav" :"add-toCart fa-regular fa-heart addToFav notUser"))#addTocart 
+    .card.product-item.border-0.mb-4
+        .card-header.product-img.position-relative.overflow-hidden.bg-transparent.border.p-0(style="height: 320px")
+         a(href=`/products/Details/${product._id}` style="display: block; height: 100%;")
+          each img in product.image 
+           -i++
+           if i <= 1
+            img.img-fluid.w-100(src=`/img/${img}`, alt)
+        .card-body.border-left.border-right.text-center.p-0.pt-4.pb-3
+          h6.text-truncate.mb-3 #{product.name}
+          .d-flex.justify-content-center
+            h6 #{product.price} $
+            h6.text-muted.ml-2
+              del 123.00 $
+        .card-footer.d-flex.justify-content-between.bg-light.border.align-items-center
+            a.btn.btn-sm.text-dark.p-0(href=`/products/Details/${product._id}`)
+             i.fas.fa-eye.text-primary.mr-1
+             | View Detail
+             
+             
+          
+          
+            form(action="#" method="POST").form     
+              input(type="hidden" name ="name" value=`${product.name}`) 
+              input(type="hidden" name ="description" value=`${product.description}`) 
+              input(type="hidden" name ="price" value=`${product.price}`) 
+              input(type="hidden" name ="categoryId" value=`${product.categorys}`) 
+        
+              input(type="hidden" name ="image" value=`${product.image}`) 
+              input(type="hidden" name ="productId" value=`${product._id}` ) 
+              input(type="hidden" name ="productOption" value=`` ).para3 
+             
+              i.fas.fa-shopping-cart.text-primary.mr-1
+               button(type="button" value=`${product._id}` ).add-toCart#addTocart  Add To Cart   
+    div.div-select-option(id=`${product._id}`)
+      .row
+
+                    div.close-icon(id=`${product._id}`) 
+                     i.fa-solid.fa-xmark(id=`${product._id}`) 
+                    h4.text-danger #{product.price} $
+                    if selectSize
+                     div.alert.alert-danger #{selectSize}
+                    .form-group.row 
+                        
+                        .col-sm-12.d-flex
+                              
+
+                         .selectSize#myDiv
+                           p  Size
+
+                           each sizeOne in product.sizeList
+                            button.size-btn.m-2( type="button", autocomplete="off" id=`${sizeOne}` name="sizeIds" value=`${sizeOne}` disabled = sizeOne.disabled) #{sizeOne}
+                              
+                            
+                                        
+                                            
+                    if selectColor
+                     div.alert.alert-danger #{selectColor}
+                    .form-group.row
+                        
+                        .col-sm-12.d-flex
+                              
+
+                          .selectColor#myDiv 
+                            p Color
+
+                            each colorOne in product.colorList
+                          
+                              button.m-2(class=`btn btn-color ${colorOne.disabled}` type="button", autocomplete="off" id=`${colorOne}` name="colorIds" value=`${colorOne}` disabled = colorOne.disabled) #{colorOne} 
+                    form(action="/cart" method="POST" class = (isAuthcuated === true ? "form-selectOption" :"form-selectOption addCartWithOutUser"))#form  
+                     input(type="hidden" name ="name" value=`${product.name}`).namePro 
+                     input(type="hidden" name ="description" value=`${product.description}`).descriptionPro 
+                     input(type="hidden" name ="price" value=`${product.price}`).pricePro 
+                     input(type="hidden" name ="url" value=`${url}`) 
+                     input(type="hidden" name ="categoryId" value=`${product.categorys}`) 
+
+                     input(type="hidden" name ="size" value=``).size.sizePro 
+                     input(type="hidden" name ="sizeId" value=``).sizeId
+                     input(type="hidden" name ="color" value=``).color.colorPro  
+                     input(type="hidden" name ="colorId" value=``).colorId 
+                     
+                     input(type="hidden" name ="image" value=`${product.image}`).imgPro 
+                     input(type="hidden" name ="productId" value=`${product._id}`).idPro 
+                     button.btn.btn-dark.py-2.px-3.mt-4.addTocart1( type="submit" id=`${product._id}+alert`) Add To Cart 
+    div.div-select-option(id=`${product._id}fav`)
+      .row
+
+                    div.close-icon(id=`${product._id}fav`) 
+                     i.fa-solid.fa-xmark(id=`${product._id}fav`) 
+                    h4.text-danger #{product.price} $
+                    if selectSize
+                     div.alert.alert-danger #{selectSize}
+                    .form-group.row 
+                        
+                        .col-sm-12.d-flex
+                              
+
+                         .selectSize#myDiv
+                           p  Size
+
+                           each sizeOne in product.sizeList
+                            button.size-btn.m-2( type="button", autocomplete="off" id=`${sizeOne}` name="sizeIds" value=`${sizeOne}` disabled = sizeOne.disabled) #{sizeOne}
+                              
+                            
+                                        
+                                            
+                    if selectColor
+                     div.alert.alert-danger #{selectColor}
+                    .form-group.row
+                        
+                        .col-sm-12.d-flex
+                              
+
+                          .selectColor#myDiv 
+                            p Color
+
+                            each colorOne in product.colorList
+                          
+                              button.m-2(class=`btn btn-color ${colorOne.disabled}` type="button", autocomplete="off" id=`${colorOne}` name="colorIds" value=`${colorOne}` disabled = colorOne.disabled) #{colorOne} 
+                    form(action="/favurite" method="POST" class = (isAuthcuated === true ? "form-selectOption" :"form-selectOption addCartWithOutUser"))#form  
+                     input(type="hidden" name ="name" value=`${product.name}`).namePro 
+                     input(type="hidden" name ="description" value=`${product.description}`).descriptionPro 
+                     input(type="hidden" name ="price" value=`${product.price}`).pricePro 
+                     input(type="hidden" name ="url" value=`${url}`) 
+                     input(type="hidden" name ="categoryId" value=`${product.categorys}`) 
+
+                     input(type="hidden" name ="size" value=``).size.sizePro 
+                     input(type="hidden" name ="sizeId" value=``).sizeId
+                     input(type="hidden" name ="color" value=``).color.colorPro  
+                     input(type="hidden" name ="colorId" value=``).colorId 
+                     
+                     input(type="hidden" name ="image" value=`${product.image}`).imgPro 
+                     input(type="hidden" name ="productId" value=`${product._id}`).idPro 
+                     button.btn.btn-dark.py-2.px-3.mt-4.addTocart1( type="submit" id=`${product._id}+alert` ) Add To Cart                 
+    div.alert-option(id=`${product._id}+alert`)
+      
+     .option-box
+      i.fa-solid.fa-circle-exclamation
+     .option-box
+      h1 Hata!
+     .option-box
+      p Sepete Eklemek İçin Lütfen beden ve renk seçiniz 
+     .option-box
+      div.alert(id=`${product._id}+alert`) 
+       button(id=`${product._id}+alert`).btn.btn-primary.text-white Tammam
+            
+    div.alert.alert-success.timer 
+         .option-box
+          h3 Product Added
+         .option-box
+           h1(style="color:green") ✓
+    

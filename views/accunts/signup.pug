@@ -1,0 +1,29 @@
+extends ../layout/layout
+
+block content
+
+ .container
+     .form-product
+      .container
+       form(action="/signup" method="POST")
+                    if Error 
+
+                     div.alert.alert-danger #{Error} 
+                    if Confirm 
+                     div.alert.alert-danger #{Confirm} 
+                    
+                    
+                    if ErrorMessage 
+                     each Error in ErrorMessage
+                       if Error.param === "email" 
+                        div.alert.alert-danger #{Error.msg}     
+                    .form-group.row 
+                        label(for="email").col-sm-2.form-label.form-plus Email
+                        .col-sm-10.mt-2
+                         input(type="email" name="email").form-control#email
+                         input(type="hidden" name="url" value=`${url}`).form-control#url
+
+                   
+                    .form-group.row 
+                        .col-sm-12.mt-2
+                         button(type="submit").btn.btn-primary.btn-form Sign Up

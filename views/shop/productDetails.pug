@@ -1,0 +1,106 @@
+
+extends ../layout/layout
+//- include ../mixin/yeniGelenler
+
+block content
+
+
+    
+ .container-fluid.pt-5
+
+    .row.product-det.px-xl-5.pb-3
+        .col-lg-6.col-md-12.product-det-img.mb-4
+          .row           
+            .col-md-12.col-sm-12.galleray.px-5
+              -let a = 0
+                each x in products.image  
+                 -a++
+                    if a <= 1              
+                      img(src=`/img/${x}` alt=`${products.description}`).img-fluid.selectImg
+
+          .row.pt-3
+           
+              -let i = 0
+                each x in products.image
+                 -i++
+                      .col-md-2.col-sm-3.galleray
+                        img(src=`/img/${x}` alt=`${products.description}` height ="100%").img-fluid.selectImg2
+        .col-lg-6.col-md-12.product-det-col.mb-5
+         .row 
+           .col-md-12.m-2.p-2  
+            h1 #{products.name}
+           .col-md-12.m-2.p-2 
+            .col-md-12.px-0.mb-5
+             p #{products.description}
+  
+            .col-md-12
+                      
+                    
+                
+                    .form-group.row
+                        
+                        .col-sm-10.d-flex.p-0
+                              
+
+                         .selectSize#myDiv
+                           p  Size
+
+                           each sizeOne in sizeList
+                            button(class=`size-btn my-2 mr-2` type="button", autocomplete="off" id=`${sizeOne._id}` name="sizeIds" value=`${sizeOne.sizeName}` disabled = sizeOne.disabled) #{sizeOne.sizeName}
+                              
+                            
+            .col-md-12                            
+                                            
+                  
+                    .form-group.row
+                        .col-sm-10.d-flex.p-0
+                              
+
+                          .selectColor#myDiv 
+                            p Color
+
+                        
+                            each colorOne in products.colorList
+                          
+                              button.my-2.mr-2(class=`btn btn-color ${colorOne.disabled}` type="button", autocomplete="off" id=`${colorOne}` name="colorIds" value=`${colorOne}` disabled = colorOne.disabled) #{colorOne}
+                                
+                  
+                         
+
+
+            h4.mt-4.text-danger #{products.price} $
+            
+            form(action="/cart" method="POST")#form.form     
+             input(type="hidden" name ="name" value=`${products.name}`) 
+             input(type="hidden" name ="description" value=`${products.description}`) 
+             input(type="hidden" name ="price" value=`${products.price}`) 
+             input(type="hidden" name ="url" value=`${url}`) 
+             input(type="hidden" name ="size" value=``).size 
+             input(type="hidden" name ="sizeId" value=``).sizeId 
+             input(type="hidden" name ="color" value=``).color 
+             input(type="hidden" name ="colorId" value=``).colorId 
+             input(type="hidden" name ="image" value=`${products.image}`) 
+             input(type="hidden" name ="productId" value=`${products._id}`) 
+             input(type="hidden" name ="h" value=`${h}`) 
+
+             button.btn.btn-dark.py-2.px-3.mt-4.addTocart1( type="submit"  id=`${products._id}+alert` style="width:150px") Add To Cart 
+            div 
+             
+            h5.mt-4 Prorperity 
+            p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore neque ipsum dolores, numquam asperiores commodi facilis qui perspiciatis, dicta laudantium porro autem ratione delectus molestias non modi consequatur beatae ex!
+            div.alert-option(id=`${products._id}+alert`)
+      
+              .option-box
+               i.fa-solid.fa-circle-exclamation
+              .option-box
+               h1 Hata!
+              .option-box
+               p Sepete Eklemek İçin Lütfen beden ve renk seçiniz 
+              .option-box
+               div.alert(id=`${products._id}+alert`) 
+                button(id=`${products._id}+alert`).btn.btn-primary.text-white Tammam
+            div.alert.alert-success.timer 
+             .option-box
+               h3 Product Added
+             .option-box
+               h1(style="color:green") ✓

@@ -1,0 +1,14 @@
+extends ../layout/layout
+
+include ../mixin/sectionOf
+block content
+ .container-fluid.pt-5
+   .row.px-xl-5.pb-3 
+     if products.length > 0
+      each product in products 
+        .col-xl-3.col-lg-4.col-md-6.col-sm-12.pb-1
+         
+             
+          +sectionOf(product)
+     else
+         h1 No Products

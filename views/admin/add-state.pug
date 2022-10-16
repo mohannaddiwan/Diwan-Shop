@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+html(lang="en")
+ include ../includes/head
+
+ body 
+   
+   block content
+   include ../includes/script
+
+
+block content
+
+ .container
+    .form-product
+       form(action="/admin/add-state" method="POST" enctype="multipart/form-data")
+
+                    .form-group.row 
+                        label(for="productDurumu").col-sm-2.form-label Product Durumu
+                        .col-sm-10.mt-2
+                         input(type="text" name="productDurumu").form-control#productDurumu
+
+                   
+
+                   
+                    .form-group.row 
+                        .col-sm-10.mt-2
+                         button(type="submit").btn-form Save 
+                    

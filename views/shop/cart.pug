@@ -1,0 +1,228 @@
+extends ../layout/layout.pug
+
+block content
+  div.alert.alert-success.timer 
+         .option-box
+          h3 Product Added
+         .option-box
+           h1(style="color:green") ✓
+  div.container.mt-5(id=(isAuthcuated === true ? "" : "cc"))
+   if isAuthcuated
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The product has been deleted.
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The product has been updated.
+    
+    if sepeti.length > 0
+        table.table.table-bordered
+            thead
+                tr
+                    th(style="width:15%;") Image
+                    th(style="width:75%;") Product
+                 
+                    
+                    th(style="width:5%;" ) Quantity
+                    th(style="width:5%;")
+                    
+                  
+                    
+                   
+                   
+            tbody
+                
+                each s in sepeti
+                    tr(style="height:240px")     
+                       
+                        td(style="height:240px; width:190px; display:block;")
+                         -let i = 0
+                         each img in s.productId.image
+                          -i++
+                          if i <= 1
+                            img(src=`/img/${img}` width='100%' height="100%")
+                        td 
+                         p #{s.productId.name}  
+                         p #{s.productId.description}  
+                         p Size: #{s.size}
+                         p Color: #{s.color}
+                         p Price #{s.productId.price} $
+                         -let toplam = s.productId.price * s.quantity
+                         p Total Price #{toplam}
+                          
+                        td(style="align-items: center;height: 240px;display: flex; width: 130px") 
+    
+     
+                         div.sizeQuantity
+                          div.F-minus                          
+                            form(action="/Azaltcart" method="POST")#form.d-inline           
+                                input(type='hidden' name='productId' value=`${s.productId.id}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+
+                                button.btn.btn-primary.azalt( type ="submit") -
+                          
+                          div.F-Quantity
+                           form(action="/guncelle" method="POST")#form.d-inline
+                              
+                                input(type='hidden' name='productId' value=`${s.productId.id}`)
+
+                                input(type="text" name="quantity"   value=`${s.quantity}` onkeypress="isInputNumber(event)").quantity
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+                                //- input(type='hidden' name='id' value=`${s.id}`)
+                                button( type ="submit" ).Guncelle Update 
+                           
+                          div.F-Plus    
+ 
+                            form(action="/Artcart" method="POST")#form.d-inline          
+                                input(type='hidden' name='productId' value=`${s.productId.id}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+                                button.btn.btn-primary.art( type ="submit") +
+                         div.delete.mx-3   
+                            form(action='/delete-cartitem' method='POST')
+                                input(type='hidden' name='productId' value=`${s.productId._id}`)
+                                input(type='hidden' name='productSizeId' value=`${s.id}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='sizeId' value=`${sizeId}`)
+
+                                button(type='submit').trash-btn
+                                 i.fa-solid.fa-trash-can 
+            tfoot
+                td(colspan="2")
+
+                - let total = 0;
+                
+                    
+                    each s in sepeti
+                        - total += s.productId.price * s.quantity
+                td(style="text-align:center")  Total Price #{total} $
+
+        .row
+          .col-md-6.col-sm-12.btn-cart        
+            a(href="/").btn.btn-primary.mb-2 Continue Shopping
+          .col-md-6.col-sm-12.text-lg-end.btn-cart 
+            form(action="/create-order" method="POST")
+                button(type="submit").btn.btn-primary.m-0 Create Oreder                     
+    else
+      h1(style="text-align: center") Empty Cart
+
+   else
+    div.container.mt-5#cc
+  
+     if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The product has been deleted.
+
+     if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The product has been updated.
+    
+     if sepeti.length > 0
+        table.table.table-bordered
+            thead
+                tr
+                    th(style="width:15%;") Image
+                    th(style="width:75%;") Product
+                 
+                    
+                    th(style="width:5%;" ) Quantity
+                    th(style="width:5%;")
+                    
+                  
+                    
+                   
+                   
+            tbody
+                
+                each s in sepeti
+                    tr(style="height:240px")     
+                        
+                        td(style="height:240px; width:190px; display:block;")
+                         
+                          -let img = s.productImg.substring(0,23)
+                          
+                            img(src=`/img/${img}` width='100%' height="100%")
+                        td 
+                         p #{s.productName}  
+                         p #{s.productDescription}  
+                         p size: #{s.productSize}
+                         p Color: #{s.productColor}
+                         p Price #{s.productPrice} $
+                         -let toplam = s.productPrice * s.productCount
+                         p Total Price #{toplam}
+                          
+                        td(style="align-items: center;height: 240px;display: flex; width: 130px") 
+    
+     
+                         div.sizeQuantity
+                          div.F-minus                          
+                            form(action="/eksi" method="POST")#form.d-inline      
+                                input(type='hidden' name='productId' value=`${s.productId}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+                                input(type='hidden' name='description' value=`${s.productDescription}`)
+                                input(type='hidden' name='name' value=`${s.productName}`)
+                                input(type='hidden' name='price' value=`${s.productPrice}`)
+                                input(type='hidden' name='sizeId' value=`${s.sizeId}`)
+                                input(type='hidden' name='colorId' value=`${s.colorId}`)
+                                input(type='hidden' name='categoryId' value=`${s.categoryId}`)
+                                input(type='hidden' name='image' value=`${s.productImg}`)
+                                input(type='hidden' name='url' value=`${url}`)
+
+                                button.btn.btn-primary.azalt( type ="submit") -
+                          
+                          div.F-Quantity
+                           form(action="/guncelle" method="POST")#form.d-inline
+                              
+                                input(type='hidden' name='productId' value=`${s.productId}}`)
+
+                                input(type="text" name="quantity"   value=`${s.productCount}` onkeypress="isInputNumber(event)").quantity
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+                                button( type ="submit" ).Guncelle.GuncelleWithOutUser Update 
+                           
+                          div.F-Plus    
+ 
+                            form(action="/plus" method="POST")#form.d-inline          
+                                input(type='hidden' name='productId' value=`${s.productId}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='color' value=`${s.color}`)
+                                input(type='hidden' name='description' value=`${s.productDescription}`)
+                                input(type='hidden' name='name' value=`${s.productName}`)
+                                input(type='hidden' name='price' value=`${s.productPrice}`)
+                                input(type='hidden' name='sizeId' value=`${s.sizeId}`)
+                                input(type='hidden' name='colorId' value=`${s.colorId}`)
+                                input(type='hidden' name='categoryId' value=`${s.categoryId}`)
+                                input(type='hidden' name='image' value=`${s.productImg}`)
+                                input(type='hidden' name='url' value=`${url}`)
+
+                                button.btn.btn-primary.art( type ="submit") +
+                         div.delete.mx-3   
+                            form(action=`/delete-product` method='POST')
+                                input(type='hidden' name='productId' value=`${s.productId}`)
+                                input(type='hidden' name='compare' value=`${s.productId}${s.sizeId}${s.colorId}`).compare
+                                input(type='hidden' name='sizeId' value=`${s.sizeId}`).sizeId
+                                input(type='hidden' name='colorId' value=`${s.colorId}`).colorId
+
+                                button(type='submit' value=``).trash-btn
+                                 i.fa-solid.fa-trash-can 
+            tfoot
+                td(colspan="2")
+
+                - let total = 0;
+                
+                    
+                    each s in sepeti
+                        - total += s.productPrice * s.productCount
+                td(style="text-align:center")  Total Price #{total} $
+
+        .row
+          .col-md-6.col-sm-12.btn-cart         
+            a(href="/").btn.btn-primary.mb-2 Continue Shopping
+          .col-md-6.col-sm-12.text-lg-end.btn-cart   
+            form(action="/create-order" method="POST")
+                button(type="submit").btn.btn-primary.m-0 Create Oreder                     
+     else
+      h1(style="text-align: center") Cart Empty
+                   
+            tbody
+             

@@ -1,0 +1,29 @@
+extends ../layout/layout.pug
+
+block content 
+ div.container.mt-5
+  form(action="/create-order-misafir" method="POST")
+   .mb-3
+    label.form-label(for="exampleInputName" required  name = "name") Name
+    input.form-control#exampleInputName(type="text" name = "name" ).ad 
+   .mb-3
+    label.form-label(for="exampleInputlastName" required  name = "lastName") Last Name
+    input.form-control#exampleInputlastName(type="text" name = "lastName").Soyad
+   .mb-3
+    label.form-label(for="exampleInputEmail1" required  name = "email") Email
+    input.form-control#exampleInputEmail1(type="email", aria-describedby="emailHelp" name = "email").email
+   .mb-3
+    label.form-label(for="exampleInputName" required  name = "tel") Tel With Key
+    input.form-control#exampleInputName(type="tel" name = "tel").tel
+ 
+
+  
+   button.btn.btn-primary( type="submit").submitOrder Continue
+ div#cc(style="display:none") 
+         .option-box
+          h3 Ürün Sepete Eklendi
+ div.alert.alert-success.timer 
+         .option-box
+          h3 Ürün Sepete Eklendi
+         .option-box
+           h1(style="color:green") ✓

@@ -1,0 +1,13 @@
+mixin yeni(yeni)
+ .row
+  .col-md-6(style="width: 100%; height: 100%")
+   div.card.border-0(style="width: 100%; ").card-style
+     .row 
+      -let i = 0
+       each img in yeni.image
+        -i++ 
+        if i<= 2 
+      
+         .col-md-6.p-0.border.border-white.border-3(style=" height:750px")
+          img.card-img-top(src=`/img/${img}` alt="..." style="width: 100%; height:100%")
+               

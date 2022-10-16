@@ -1,0 +1,99 @@
+extends ../layout/layout.pug
+
+block content
+  div.alert.alert-success.timer 
+         .option-box
+          h3 Product Added
+         .option-box
+           h1(style="color:green") ✓
+  div.container.mt-5(id=(isAuthcuated === true ? "" : "cc"))
+   if isAuthcuated
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The product has been deleted.
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The product has been updated.
+    
+    if favurite.length > 0
+        table.table.table-bordered
+            thead
+                tr
+                    th(style="width:15%;") Image
+                    th(style="width:75%;") Product
+                 
+                    
+                    th(style="width:5%;" ) Quantity
+                    th(style="width:5%;")
+                    
+                  
+                    
+                   
+                   
+            tbody
+                
+                each s in favurite
+                    tr(style="height:240px")     
+                       
+                        td(style="height:240px; width:190px; display:block;")
+                         -let i = 0
+                         each img in s.productId.image
+                          -i++
+                          if i <= 1
+                            img(src=`/img/${img}` width='100%' height="100%")
+                        td 
+                         p #{s.productId.name}  
+                         p #{s.productId.description}  
+                         p Size: #{s.size}
+                         p Color: #{s.color}
+                         p Price #{s.productId.price} $
+                         -let toplam = s.productId.price * s.quantity
+                         p Total Price #{toplam}
+                         .col-md-12.col-sm-12.text-lg-end.btn-cart 
+                          form(action="/cart" method="POST")
+                            input(type="hidden" name ="name" value=`${s.productId.name}`).namePro 
+                            input(type="hidden" name ="description" value=`${s.productId.description}`).descriptionPro 
+                            input(type="hidden" name ="price" value=`${s.productId.price}`).pricePro 
+                            input(type="hidden" name ="url" value=`${url}`) 
+                            input(type="hidden" name ="categoryId" value=`${product.categorys}`) 
+
+                            input(type="hidden" name ="size" value=`${s.size}`).size.sizePro 
+                            input(type="hidden" name ="color" value=`${s.color}`).color.colorPro  
+                            input(type="hidden" name ="colorId" value=``).colorId 
+                            
+                            input(type="hidden" name ="image" value=`${s.productId.image}`).imgPro 
+                            input(type="hidden" name ="productId" value=`${s.productId._id}`).idPro 
+                            button(type="submit").btn.btn-primary.m-0 Add To Cart 
+                        td(style="align-items: center;height: 240px;display: flex; width: 130px") 
+    
+     
+                         div.sizeQuantity
+                      
+                               
+                         div.delete.mx-3   
+                            form(action='/delete-Favitem' method='POST')
+                                input(type='hidden' name='productId' value=`${s.productId._id}`)
+                                input(type='hidden' name='productSizeId' value=`${s.id}`)
+                                input(type='hidden' name='size' value=`${s.size}`)
+                                input(type='hidden' name='sizeId' value=`${sizeId}`)
+
+                                button(type='submit').trash-btn
+                                 i.fa-solid.fa-trash-can 
+                                   
+            //- tfoot
+            //-     td(colspan="2")
+
+            //-     - let total = 0;
+                
+                    
+            //-         each s in favurite
+            //-             - total += s.productId.price * s.quantity
+            //-     td(style="text-align:center")  Total Price #{total} $
+
+        //- .row
+        //-   .col-md-6.col-sm-12.btn-cart        
+        //-     a(href="/").btn.btn-primary.mb-2 Continue Shopping
+        //-   .col-md-6.col-sm-12.text-lg-end.btn-cart 
+        //-     form(action="/create-order" method="POST")
+        //-         button(type="submit").btn.btn-primary.m-0 Create Oreder                     
+    else
+      h1(style="text-align: center") No Favurite Products

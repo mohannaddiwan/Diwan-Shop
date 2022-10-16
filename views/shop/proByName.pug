@@ -1,0 +1,30 @@
+
+extends ../layout/layout
+include ../mixin/yeniGelenler
+
+block content
+
+
+    
+ .container
+
+    .row
+        .col-md-3
+            img(src=`/img/${product.image}` alt=`${product.description}`).img-fluid
+
+        .col-md-9.pl-3
+            h1.mb-3 #{product.name}
+            
+            p #{product.description}
+            .mb-3
+                h4.mb-3 #{product.price} TL
+                h4.mb-3 #{product.size} 
+                
+
+    .row
+        .col-md-12
+            hr
+            
+           
+    
+        input(type="hidden" name ="productId" id=`${productId}`) 

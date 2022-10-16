@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+html(lang="en")
+    include ../includes/head
+
+    body 
+
+        block content
+        include ../includes/script
+
+    .container
+
+        .form-product
+            form(action="/admin/edit-product" method="POST" enctype="multipart/form-data")
+                input(type="hidden" name="id" value=`${products._id}`)
+
+                .form-group.row 
+                    label(for="name").col-sm-2.form-label Name
+                    .col-sm-10.mt-2
+                        input(type="text" name="name" value=`${products.name}`).form-control#ProductName
+                .form-group.row 
+                    label(for="description").col-sm-2.form-label Description
+                    .col-sm-10.mt-2
+                        input(type="text" name="description" value=`${products.description}`).form-control#Productdescription 
+                .form-group.row 
+                    label(for="price").col-sm-2.form-label Price
+                    .col-sm-10.mt-2
+                        input(type="text" name="price" value=`${products.price}`).form-control#ProductPrice
+
+                .form-group.row 
+                    label(for="image").col-sm-2.form-label Image
+                    .col-sm-10.mt-2
+                      -let i = 0
+                      each img in products.image
+                       -i++
+                        if i <= 1
+                         img(src=`/img/${img}` name ="image" width="80" style="margin-left: 30px")
+                      input(type="file" name="image" width="40px" multiple).m-2.p-2.form-control#ProductImg
+
+
+
+                .form-group.row 
+                    label(for="categoryIds").col-sm-2.form-label Category
+                    .col-sm-10.mt-2
+
+                        each category in categorys 
+                            input(type="checkbox" name="categoryIds" value=`${category._id}` checked = category.selected ) 
+                            |  #{category.CategoryName}                            
+                            br
+
+                .form-group.row 
+                    label(for="sizeIds").col-sm-2.form-label Size
+                    .col-sm-10.mt-2
+
+                        each sizeOne in sizeList  
+                            input(type="checkbox" name="sizeIds" value=`${sizeOne.sizeName}` checked = sizeOne.selected ) 
+                            |  #{sizeOne.sizeName}                            
+                            br
+                .form-group.row 
+                    label(for="colorIds").col-sm-2.form-label Color
+                    .col-sm-10.mt-2
+
+                        each colorOne in colorList  
+                            input(type="checkbox" name="colorIds" value=`${colorOne.colorName}` checked = colorOne.selected ) 
+                            |  #{colorOne.colorName}                            
+                            br
+
+                .form-group.row 
+                        label(for="state").col-sm-2.form-label State
+                        .col-sm-10.mt-2 
+                          each stateOne in state 
+                            input(type="checkbox", name="state"  value=`${stateOne.product_durumu}` checked = stateOne.selected)
+                            |  #{stateOne.product_durumu}                     
+                            br
+
+
+                .form-group.row 
+                    .col-sm-12.mt-2
+                        button(type="submit").btn.btn-primary.btn-form Save Product

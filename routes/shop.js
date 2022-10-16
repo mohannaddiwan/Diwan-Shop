@@ -1,0 +1,30 @@
+const express = require("express");
+const router = express.Router();
+const authcation = require("../middleware/Authcuation");
+const shopControl = require("../controllers/shop");
+
+router.get("/anaSayfa", shopControl.getIndex);
+router.get("/", shopControl.getIndex);
+router.get("/search", shopControl.getSearch);
+router.post("/search", shopControl.postSearch);
+router.get("/products", shopControl.getProByCat);
+router.get("/cart", shopControl.getCart);
+router.post("/cart", shopControl.postCart);
+router.post("/favurite", shopControl.postFavurite);
+router.get("/favurite", shopControl.getFavurite);
+router.post("/Artcart", shopControl.ArtCart);
+router.post("/Azaltcart", shopControl.AzaltCart);
+router.post("/delete-cartitem", shopControl.deleteProduct);
+router.post("/delete-Favitem", shopControl.deleteFav);
+router.post("/delete-product", shopControl.deleteProductOutUser);
+router.get("/order", shopControl.getOrder);
+router.post("/create-order", shopControl.postOrder);
+router.post("/create-order-misafir", shopControl.postOrderMisafir);
+router.get("/orderDet", shopControl.getOrderOutUser);
+router.get("/products/Details/:productId", shopControl.getProDet);
+router.get("/products/:categoryid", shopControl.getProByCat);
+router.post("/guncelle", shopControl.postGuncelle);
+router.post("/plus", shopControl.postPlus);
+router.post("/eksi", shopControl.postEksi);
+
+module.exports = router;

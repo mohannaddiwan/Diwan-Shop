@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+html(lang="en")
+ include ../includes/head
+
+ body 
+   
+   block content
+   include ../includes/script
+
+
+ .container
+     .form-product
+       form(action="/admin/add-product" method="POST" enctype="multipart/form-data").row
+
+                    .form-group.col-md-6
+                        label(for="name").col-sm-2.form-label.p-0 Name
+                        .mt-2
+                         input(type="text" name="name").form-control#ProductName
+                    .form-group.col-md-6
+                        label(for="description").col-sm-2.form-label.p-0 Description
+                        .mt-2
+                         input(type="text" name="description").form-control#Productdescription 
+
+                    .form-group.col-md-6
+                        label(for="price").col-sm-2.form-label.p-0 Price
+                        .mt-2
+                         input(type="text" name="price").form-control#ProductPrice
+
+                    .form-group.col-md-6
+                        label(for="image").col-sm-2.form-label.p-0 Image
+                        .mt-2
+                         input(type="file" name="image" required  multiple).form-control#ProductImg
+            
+                 
+                    
+               
+                    
+                            
+ 
+
+                    .form-group.col-md-6
+                        label(for="categoryId").form-label 
+                         h6 Category
+                        .row
+                         
+                          each category in categorys 
+                           .col-md-3.my-2
+                            input(type="checkbox" name="categoryIds" value=`${category.CategoryName}` checked = category.selected) 
+                            |  #{category.CategoryName}                            
+                            br
+                       
+                    .form-group.col-md-6
+                        label(for="sizeIds").form-label
+                         h6 Size
+                        .row
+                          each sizeOne in sizeList 
+                           .col-md-1.my-2
+                            input#option1(type="checkbox", name="sizeIds" value=`${sizeOne.sizeName}` checked = sizeOne.selected)
+                            |  #{sizeOne.sizeName}                            
+                            br
+
+                       
+                    .form-group.col-md-6
+                        label(for="colorIds").form-label 
+                         h6 Color
+                        .row
+                          each colorOne in colorList 
+                           .col-md-3.my-2
+                            input(type="checkbox", name="colorIds" value=`${colorOne.colorName}` checked = colorOne.selected)
+                            |  #{colorOne.colorName}                            
+                            br
+                    .form-group.col-md-6
+                        label(for="state").form-label
+                         h6 State
+                        .row 
+                          each stateOne in state 
+                           .col-md-4.my-2
+                            input(type="checkbox", name="state"  value=`${stateOne.product_durumu}` checked = stateOne.selected)
+                            |  #{stateOne.product_durumu}                     
+                            br
+
+                        
+                        
+
+
+
+                    .form-group.row 
+                        .col-sm-12.mt-2
+                         button(type="submit").btn.btn-primary.btn-form.px-0.py-2 Save Product
+                    

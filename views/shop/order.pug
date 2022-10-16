@@ -1,0 +1,144 @@
+extends ../layout/layout.pug
+
+block content 
+ div.container.mt-5
+  
+  if isAuthcuated
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The product has been deleted.
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The product has been updated.
+    
+    if orders.length > 0
+       each order in orders 
+        .card.mb-5.p-2  
+         .row 
+           .col-md-3
+            h6 Name : #{order.user.name}
+           .col-md-3
+            h6 Last Name : #{order.user.lastName}
+           .col-md-3
+            h6 Email : #{order.user.email}
+           .col-md-3
+            h6 Tel : #{order.user.tel}
+         table.table.table-bordered.mt-2
+            thead
+                    tr
+                        th(style="width:100px;") Image
+                        th Product Name
+                        th(style="width:150px;") Price
+                        th(style="width:150px;") Size
+                        th(style="width:150px;") Color
+                        th Quantity
+            tbody
+                    each item in order.items
+                        tr
+                            td
+                              -let i = 0
+                              each img in item.product.image
+                               -i++
+                               if i <= 1
+                                img(src=`/img/${img}` width='80')
+                            td #{item.product.name}
+                            td #{item.product.price} $
+                            td #{item.size} 
+                            td #{item.color} 
+                            td #{item.quantity}
+                            
+                           
+
+            tfoot
+                    td(colspan="4")
+
+                    - let total = 0;
+                        
+                        each item in order.items
+                            - total += item.product.price * item.quantity
+                    td Total Price #{total} $
+                    if isAdmin
+                     td 
+                      form(action="/admin/delete-order" method="POST" style="display:inline").mx-2
+                        input(type="hidden" name="orderId" value=`${order._id}`) 
+                        button(type="submit").btn.btn-danger.btn-sm Delete
+         -let i = 0        
+         each order in orders 
+          -i++     
+          if order.user.isAdmin !== true
+          if !isAdmin 
+           if siparisBtn 
+
+            if i <= 1
+               .text-center
+                a(href=`https://api.whatsapp.com/send/?phone=905387021384&text=name:${order.user.name},tel:${order.user.tel}        
+                siparis:${urlOfOrder}&type=phone_number&app_absent=0`).btn.btn-primary.mb-2 Send Order
+          
+                      
+  if !isAuthcuated || isAdmin
+   
+    if (action !== 'undefined' && action === 'delete')
+        div.alert.alert-danger The product has been deleted.
+
+    if (action !== 'undefined' && action === 'edit')
+        div.alert.alert-success The product has been updated.
+    
+    if orders2.length > 0
+     each order in orders2
+        .card.mb-5.p-2  
+         .row 
+           .col-md-3
+            h6 Name : #{order.userName}
+           .col-md-3
+            h6 LastName : #{order.lastName}
+           .col-md-3
+            h6 Email : #{order.email}
+           .col-md-3
+            h6 Tel : #{order.tel}
+         table.table.table-bordered.mt-2
+            thead
+                    tr
+                        th(style="width:100px;") Image
+                        th Product Name
+                        th(style="width:150px;") Price
+                        th(style="width:150px;") Size
+                        th(style="width:150px;") Color
+                        th Quantity
+            tbody
+                    each item in orders2
+                        tr
+                            td
+                             -let i = 0
+                              each img in item.image
+                               -i++
+                               if i <= 1
+                              
+                                img(src=`/img/${img}` width='80')
+                            td #{item.name}
+                            td #{item.price} $
+                            td #{item.size} 
+                            td #{item.color} 
+                            td #{item.quantity}
+                            
+                           
+
+            tfoot
+                    td(colspan="4")
+
+                    - let total = 0;
+                        
+                        each item in orders2
+                            - total += item.price* item.quantity
+                    td Total Price #{total} $
+                    td 
+                      form(action="/admin/delete-order" method="POST" style="display:inline").mx-2
+                        input(type="hidden" name="orderId" value=`${order._id}`) 
+                        button(type="submit").btn.btn-danger.btn-sm Delete
+         -let i = 0        
+         each order in orders2 
+          -i++     
+          if !isAdmin
+           if siparisBtn 
+            if i <= 1
+               .text-center
+                a(href=`https://api.whatsapp.com/send/?phone=905387021384&text=name:${order.userName},tel:${order.tel}        
+                siparis:${urlOfOrder}&type=phone_number&app_absent=0`).btn.btn-primary.mb-2 Send Order
